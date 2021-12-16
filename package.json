@@ -6,7 +6,10 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
-    "test": "jest"
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --no-cache",
+    "test:unit": "npm test -- --watch -c jest-unit.config.js",
+    "test:ci": "npm test -- --coverage",
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "keywords": [],
   "author": "",
