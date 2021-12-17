@@ -9,7 +9,7 @@ describe('Body Parser Middleware', () => {
 
     await request(app)
       .post('/test_body_parser')
-      .send({ name: 'Teste' })
-      .expect({ name: 'Teste' })
+      .send({ name: 'Test' })
+      .expect({ name: 'Test' })
   })
 })
