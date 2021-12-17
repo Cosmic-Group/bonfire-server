@@ -8,4 +8,4 @@ const app = express()
 setupMiddleware(app)
 seteupRoutes(app)
 
-export default app
+export { app }

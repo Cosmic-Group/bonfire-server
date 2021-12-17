@@ -1,37 +1,35 @@
-import { IBackup, IMemoryDb, newDb } from 'pg-mem'
-import { getConnection, getRepository, Repository } from 'typeorm'
+import { IBackup } from 'pg-mem'
+import { Repository } from 'typeorm'
 import { PgUserAccountRepository } from '.'
 import { PgUser } from '../entities'
-
-const makeFakeDb = async (entities?: any[]): Promise<IMemoryDb> => {
-  const db = newDb()
-  const connection = await db.adapters.createTypeormConnection({
-    type: 'postgres',
-    entities: entities ?? ['src/infra/postgres/entities/index.ts']
-  })
-
-  await connection.synchronize()
-  return db
-}
+import { PgConnection } from '../helpers'
+import { makeFakeDb } from '../helpers/mocks/connection'
+import { PgRepository } from './repository'
 
 describe('PgUserAccountRepository', () => {
   let sut: PgUserAccountRepository
+  let connection: PgConnection
   let pgUserRepo: Repository<PgUser>
   let backup: IBackup
 
   beforeAll(async () => {
+    connection = PgConnection.getInstance()
     const db = await makeFakeDb([PgUser])
     backup = db.backup()
-    pgUserRepo = getRepository(PgUser)
+    pgUserRepo = connection.getRepository(PgUser)
   })
 
   afterAll(async () => {
-    await getConnection().close()
+    await connection.disconnect()
   })
 
   beforeEach(() => {
     backup.restore()
     sut = new PgUserAccountRepository()
+  })
+
+  it('should extend PgRepository', async () => {
+    expect(sut).toBeInstanceOf(PgRepository)
   })
 
   describe('create', () => {
