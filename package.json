@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "start": "sucrase-node src/main/server.ts",
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --no-cache",
     "test:staged": "npm test -- --passWithNoTests",
     "test:unit": "npm test -- --watch -c jest-unit.config.js",
@@ -39,6 +40,7 @@
     "jest": "^27.4.5",
     "lint-staged": "^12.1.2",
     "pg-mem": "^2.1.9",
+    "sucrase": "^3.20.3",
     "ts-jest": "^27.1.2",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.4"
