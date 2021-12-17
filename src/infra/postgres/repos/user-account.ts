@@ -13,6 +13,13 @@ export class PgUserAccountRepository extends PgRepository implements CreateAccou
       password: accountData.password
     })
 
-    return account[0]
+    const accountResponse: AccountModel = {
+      id: account.id.toString(),
+      email: account.email,
+      name: account.name,
+      password: account.password
+    }
+
+    return accountResponse
   }
 }

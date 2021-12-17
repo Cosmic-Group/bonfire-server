@@ -5,6 +5,7 @@ import { PgUser } from '../entities'
 
 jest.mock('typeorm', () => ({
   Entity: jest.fn(),
+  PrimaryColumn: jest.fn(),
   PrimaryGeneratedColumn: jest.fn(),
   Column: jest.fn(),
   CreateDateColumn: jest.fn(),
