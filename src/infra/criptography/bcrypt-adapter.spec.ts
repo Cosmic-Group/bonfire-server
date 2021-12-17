@@ -8,9 +8,8 @@ jest.mock('bcrypt', () => ({
 }))
 
 const salt = 12
-const makeSut = (): any => {
+const makeSut = (): BCrypterAdapter => {
   const sut = new BCrypterAdapter(salt)
-
   return sut
 }
 
