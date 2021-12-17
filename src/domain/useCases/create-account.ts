@@ -1,10 +1,9 @@
-import { AccountModel } from '../entities/account'
+import { AccountModel } from '../model/account'
 
 export interface CreateAccountModel {
   name: string
   email: string
   password: string
-  avatar?: string
 }
 
 export interface CreateAccount {
