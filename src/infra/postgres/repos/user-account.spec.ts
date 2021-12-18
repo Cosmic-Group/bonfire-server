@@ -33,7 +33,7 @@ describe('PgUserAccountRepository', () => {
   })
 
   describe('create', () => {
-    test('should create an account', async () => {
+    test('Should return an account on success', async () => {
       await sut.create({
         email: 'any_email@mail.com',
         name: 'any_name',
@@ -44,6 +44,28 @@ describe('PgUserAccountRepository', () => {
 
       expect(account.id).toBe(1)
       expect(account.email).toBe('any_email@mail.com')
+    })
+  })
+
+  describe('loadByEmail', () => {
+    test('Should return an account on success', async () => {
+      await sut.create({
+        email: 'any_email@mail.com',
+        name: 'any_name',
+        password: 'any_password'
+      })
+
+      const account = await sut.loadByEmail('any_email@mail.com')
+
+      expect(account).toBeTruthy()
+      expect(account.id).toBeTruthy()
+      expect(account.name).toBe('any_name')
+      expect(account.password).toBe('any_password')
+    })
+
+    test('Should return null if loadByEmail fails', async () => {
+      const account = await sut.loadByEmail('any_email@mail.com')
+      expect(account).toBeFalsy()
     })
   })
 })
