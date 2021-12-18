@@ -10,9 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./bonfire-server
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
@@ -25,5 +22,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           
       - name: Install dependencies
+        working-directory: ./bonfire-server
         run: npm install
       - run: npm run build
