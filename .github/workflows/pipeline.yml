@@ -1,0 +1,70 @@
+name: Pipeline
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  unit-tests: 
+    runs-on: ubuntu-latest 
+    steps: 
+      - uses: actions/checkout@v2 
+      - name: Running unit tests 
+        run: | 
+          npm install 
+          npm run test-ci:unit
+          
+          
+  integration-tests: 
+    runs-on: ubuntu-latest
+    needs: [unit-tests]
+    steps: 
+      - uses: actions/checkout@v2 
+      - name: Running integration tests 
+        run: | 
+          npm install 
+          npm run test-ci:integration
+          
+          
+  lint: 
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests]
+    steps: 
+      - uses: actions/checkout@v2 
+      - name: Running lint fix
+        run: | 
+          npm install 
+          npm run lint:fix
+          
+          
+  build:
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, lint]
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Running build
+        run: |
+          npm install
+          npm run build
+
+  deploy: 
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, build]
+    steps: 
+      - uses: actions/checkout@v2 
+      - name: Running deploy 
+        run: echo 'Deploy'
