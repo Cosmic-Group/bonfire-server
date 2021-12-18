@@ -1,8 +1,0 @@
-name: configure-releases
-
-on:
-  push:
-    branches: [ master ]
-    tags:        
-      - v1
-      - v1.*
