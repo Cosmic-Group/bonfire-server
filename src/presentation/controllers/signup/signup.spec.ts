@@ -1,6 +1,7 @@
 import { SignUpController } from './signup'
 import { EmailValidator, AccountModel, CreateAccount, CreateAccountModel } from './signup-protocols'
-import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
+import { EmailInUseError, InvalidParamError, MissingParamError, ServerError } from '../../errors'
+import { forbidden } from '../../helpers/http-helper'
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -238,5 +239,22 @@ describe('SignUp Controller', () => {
       email: 'valid_email@mail.com',
       password: 'valid_password'
     })
+  })
+
+  test('Should return 413 if CreateAccount returns null', async () => {
+    const { sut, createAccountStub } = makeSut()
+    jest.spyOn(createAccountStub, 'create').mockReturnValueOnce(new Promise(resolve => resolve(null)))
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'anyd_email@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
+      }
+    }
+
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(forbidden(new EmailInUseError()))
   })
 })
