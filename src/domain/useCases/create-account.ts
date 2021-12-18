@@ -7,5 +7,5 @@ export interface CreateAccountModel {
 }
 
 export interface CreateAccount {
-  create: (account: CreateAccountModel) => Promise<AccountModel>
+  create: (account: CreateAccountModel) => Promise<Omit<AccountModel, 'password'>>
 }

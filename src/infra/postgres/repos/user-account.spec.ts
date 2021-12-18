@@ -60,7 +60,7 @@ describe('PgUserAccountRepository', () => {
       expect(account).toBeTruthy()
       expect(account.id).toBeTruthy()
       expect(account.name).toBe('any_name')
-      expect(account.password).toBe('any_password')
+      expect(account.email).toBe('any_email@mail.com')
     })
 
     test('Should return null if loadByEmail fails', async () => {

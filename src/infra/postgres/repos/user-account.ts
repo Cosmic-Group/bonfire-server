@@ -6,7 +6,7 @@ import { PgRepository } from './repository'
 import { LoadAccountByEmailRepository } from 'data/protocols/load-account-by-email-repository'
 
 export class PgUserAccountRepository extends PgRepository implements CreateAccountRepository, LoadAccountByEmailRepository {
-  async create (accountData: CreateAccountModel): Promise<AccountModel> {
+  async create (accountData: CreateAccountModel): Promise<Omit<AccountModel, 'password'>> {
     const pgUserRepo = this.getRepository(PgUser)
     const account = await pgUserRepo.save({
       email: accountData.email,
@@ -14,26 +14,24 @@ export class PgUserAccountRepository extends PgRepository implements CreateAccou
       password: accountData.password
     })
 
-    const accountResponse: AccountModel = {
+    const accountResponse: Omit<AccountModel, 'password'> = {
       id: account.id.toString(),
       email: account.email,
-      name: account.name,
-      password: account.password
+      name: account.name
     }
 
     return accountResponse
   }
 
-  async loadByEmail (email: string): Promise<AccountModel> {
+  async loadByEmail (email: string): Promise<Omit<AccountModel, 'password'>> {
     const pgUserRepo = this.getRepository(PgUser)
     const account = await pgUserRepo.findOne({ email })
 
     if (account) {
-      const accountResponse: AccountModel = {
+      const accountResponse: Omit<AccountModel, 'password'> = {
         id: account.id.toString(),
         email: account.email,
-        name: account.name,
-        password: account.password
+        name: account.name
       }
 
       return accountResponse

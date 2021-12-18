@@ -6,7 +6,7 @@ export class DBCreateAccount implements CreateAccount {
     private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository
   ) {}
 
-  async create (accountData: CreateAccountModel): Promise<AccountModel> {
+  async create (accountData: CreateAccountModel): Promise<Omit<AccountModel, 'password'>> {
     const account = await this.loadAccountByEmailRepository.loadByEmail(accountData.email)
     if (!account) {
       const hashedPassword = await this.encrypter.encrypt(accountData.password)
