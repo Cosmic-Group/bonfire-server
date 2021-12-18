@@ -5,11 +5,18 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "start": "sucrase-node src/main/server.ts",
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/main/server.ts",
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
+    "typeorm:prod": "TS_NODE_DEV=false ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --no-cache",
+    "test:verbose": "jest --passWithNoTests --runInBand",
+    "test:staged": "npm test -- --passWithNoTests",
     "test:unit": "npm test -- --watch -c jest-unit.config.js",
     "test:ci": "npm test -- --coverage",
-    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
+    "test:integration": "npm test -- --watch -c jest-integration.config.js"
   },
   "keywords": [],
   "author": "",
