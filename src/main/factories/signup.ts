@@ -11,6 +11,6 @@ export const makeSignUpController = (): SignUpController => {
   const pgUserAccountRepository = new PgUserAccountRepository()
 
   const emailValidatorAdapter = new EmailValidatorAdapter()
-  const createAccount = new DBCreateAccount(bcryptAdapter, pgUserAccountRepository)
+  const createAccount = new DBCreateAccount(bcryptAdapter, pgUserAccountRepository, pgUserAccountRepository)
   return new SignUpController(emailValidatorAdapter, createAccount)
 }
