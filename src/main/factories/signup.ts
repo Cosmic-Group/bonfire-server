@@ -3,8 +3,10 @@ import { BCrypterAdapter } from '../../infra/criptography/bcrypt-adapter'
 import { PgUserAccountRepository } from '../../infra/postgres/repos'
 import { EmailValidatorAdapter } from '../../presentation/utils/email-validator-adapter'
 import { SignUpController } from '../../presentation/controllers/signup//signup'
+import { Controller } from '../../presentation/protocols'
+import { LogControllerDecorator } from '../decorators/log'
 
-export const makeSignUpController = (): SignUpController => {
+export const makeSignUpController = (): Controller => {
   const salt = 12
   const bcryptAdapter = new BCrypterAdapter(salt)
 
@@ -12,5 +14,6 @@ export const makeSignUpController = (): SignUpController => {
 
   const emailValidatorAdapter = new EmailValidatorAdapter()
   const createAccount = new DBCreateAccount(bcryptAdapter, pgUserAccountRepository, pgUserAccountRepository)
-  return new SignUpController(emailValidatorAdapter, createAccount)
+  const signUpController = new SignUpController(emailValidatorAdapter, createAccount)
+  return new LogControllerDecorator(signUpController)
 }
