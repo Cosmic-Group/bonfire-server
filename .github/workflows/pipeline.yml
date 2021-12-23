@@ -67,4 +67,4 @@ jobs:
     steps: 
       - uses: actions/checkout@v2 
       - name: Running deploy 
-        run: echo 'Deploy'
+        run: git push heroku-dev master
