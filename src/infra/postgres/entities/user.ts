@@ -17,6 +17,12 @@ export class PgUser {
   @Column({ nullable: true })
   avatar: string
 
+  @Column({ nullable: true })
+  background: string
+
+  @Column({ default: 'dark' })
+  theme: string
+
   @CreateDateColumn()
   created_at: Date
 

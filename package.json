@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "start": "sucrase-node src/main/server.ts",
+    "start": "TS_NODE_DEV=false node dist/main/server.js",
+    "homolog": "sucrase-node src/main/server.ts",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/main/server.ts",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "lint": "eslint src --ext .ts",
