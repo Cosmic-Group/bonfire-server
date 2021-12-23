@@ -65,9 +65,10 @@ jobs:
     environment:
       name: dev
       url: 'https://bonfire-dev-api.herokuapp.com/'
-    steps: 
-      - name: Running deploy-dev
+    steps:
       - uses: actions/checkout@v2
+      
+      - name: Running deploy-dev
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
