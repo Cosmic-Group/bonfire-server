@@ -13,7 +13,7 @@ export const signupPath = {
     },
     responses: {
       201: {
-        description: 'Success',
+        description: 'Created',
         content: {
           'application/json': {
             schema: {
@@ -21,6 +21,15 @@ export const signupPath = {
             }
           }
         }
+      },
+      400: {
+        $ref: '#/components/badRequest'
+      },
+      404: {
+        $ref: '#/components/notFound'
+      },
+      500: {
+        $ref: '#/components/serverError'
       }
     }
   }
