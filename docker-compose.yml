@@ -1,18 +1,5 @@
 version: '3.7'
 services:
-  database:
-    image: postgres
-    container_name: bonfire-database-container
-    restart: always
-    ports:
-      - ${DB_PORT}:${DB_PORT}
-    environment:
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE}
-    volumes:
-      - pgdata:/data/postgres
-
   app:
     build: .
     container_name: bonfire-api-container
@@ -21,10 +8,6 @@ services:
       - 9222:9222
     volumes:
       - .:/usr/app
-    links:
-      - database
-    depends_on:
-      - database
 
 volumes:
   pgdata:

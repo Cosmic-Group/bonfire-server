@@ -31,6 +31,17 @@ export class CreateUserAccount1639774302517 implements MigrationInterface {
             isNullable: true
           },
           {
+            name: 'background',
+            type: 'varchar',
+            isNullable: true
+          },
+          {
+            name: 'theme',
+            type: 'enum',
+            enum: ['dark', 'light'],
+            default: '\'dark\''
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP'
