@@ -8,6 +8,6 @@ dotenv.config()
 PgConnection.getInstance().connect()
   .then(async () => {
     const { app } = await import('./config/app')
-    app.listen(process.env.PORT_APP, () => console.log(`Server running at http://localhost:${process.env.PORT_APP}`))
+    app.listen(process.env.PORT || 5050, () => console.log(`Server running at ${process.env.APP_URL || 'http://localhost'}:${process.env.PORT || 5050}`))
   })
   .catch(console.error)
