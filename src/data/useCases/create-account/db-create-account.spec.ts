@@ -5,7 +5,7 @@ const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@mail.com',
-  password: 'valid_password'
+  password: 'hashed_password'
 })
 
 const makeFakeAccountData = (): CreateAccountModel => ({
@@ -27,13 +27,7 @@ const makeEncrypter = (): Encrypter => {
 const makeCreateAccountRepository = (): CreateAccountRepository => {
   class CreateAccountRepositoryStub implements CreateAccountRepository {
     async create (accountData: CreateAccountModel): Promise<AccountModel> {
-      const fakeAccount = {
-        id: 'valid_id',
-        name: 'valid_name',
-        email: 'valid_email@mail.com',
-        password: 'hashed_password'
-      }
-      return new Promise(resolve => resolve(fakeAccount))
+      return new Promise(resolve => resolve(makeFakeAccount()))
     }
   }
 
@@ -75,7 +69,8 @@ describe('DBCreateAccount UseCase', () => {
   test('Should call Encrypter with correct password', async () => {
     const { sut, encrypterStub } = makeSut()
     const encryptSpy = jest.spyOn(encrypterStub, 'encrypt')
-    await sut.create(makeFakeAccount())
+
+    await sut.create(makeFakeAccountData())
     expect(encryptSpy).toHaveBeenCalledWith('valid_password')
   })
 
@@ -109,29 +104,15 @@ describe('DBCreateAccount UseCase', () => {
 
   test('Should return an account on success', async () => {
     const { sut } = makeSut()
-    const accountData = {
-      name: 'valid_name',
-      email: 'valid_email@mail.com',
-      password: 'valid_password'
-    }
-    const account = await sut.create(accountData)
-    expect(account).toEqual({
-      id: 'valid_id',
-      name: 'valid_name',
-      email: 'valid_email@mail.com',
-      password: 'hashed_password'
-    })
+    const account = await sut.create(makeFakeAccountData())
+    expect(account).toEqual(makeFakeAccount())
   })
 
   test('Should return null if LoadAccountByEmailRepository not return null', async () => {
     const { sut, loadAccountByEmailRepository } = makeSut()
     jest.spyOn(loadAccountByEmailRepository, 'loadByEmail').mockReturnValueOnce(new Promise(resolve => resolve(makeFakeAccount())))
-    const accountData = {
-      name: 'valid_name',
-      email: 'valid_email@mail.com',
-      password: 'valid_password'
-    }
-    const account = await sut.create(accountData)
+
+    const account = await sut.create(makeFakeAccountData())
     expect(account).toBeNull()
   })
 
