@@ -1,5 +1,5 @@
 import { SignUpController } from './signup'
-import { EmailValidator, AccountModel, CreateAccount, CreateAccountModel, httpRequest } from './signup-protocols'
+import { EmailValidator, AccountModel, CreateAccount, CreateAccountModel, httpRequest, Validation } from './signup-protocols'
 import { EmailInUseError, InvalidParamError, MissingParamError, ServerError } from '../../errors'
 import { forbidden, created, serverError, badRequest } from '../../helpers/http-helper'
 
@@ -23,6 +23,16 @@ const makeCreateAccount = (): CreateAccount => {
   return new CreateAccountStub()
 }
 
+const makeValidation = (): Validation => {
+  class ValidationStub implements Validation {
+    validate (input: any): Error {
+      return null
+    }
+  }
+
+  return new ValidationStub()
+}
+
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
@@ -42,17 +52,21 @@ interface SutTypes {
   sut: SignUpController
   emailValidatorStub: EmailValidator
   createAccountStub: CreateAccount
+  validationStub: Validation
 }
 
 const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidator()
   const createAccountStub = makeCreateAccount()
-  const sut = new SignUpController(emailValidatorStub, createAccountStub)
+  const validationStub = makeValidation()
+
+  const sut = new SignUpController(emailValidatorStub, createAccountStub, validationStub)
 
   return {
     sut,
     emailValidatorStub,
-    createAccountStub
+    createAccountStub,
+    validationStub
   }
 }
 
@@ -199,5 +213,15 @@ describe('SignUp Controller', () => {
 
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(forbidden(new EmailInUseError()))
+  })
+
+  test('Should call Validation with correct values', async () => {
+    const { sut, validationStub } = makeSut()
+    const validateSpy = jest.spyOn(validationStub, 'validate')
+
+    const httpRequest = makeFakeRequest()
+
+    await sut.handle(httpRequest)
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
   })
 })
