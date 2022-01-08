@@ -1,5 +1,5 @@
 import { DBCreateAccount } from '../../../data/useCases/create-account/db-create-account'
-import { BCrypterAdapter } from '../../../infra/criptography/bcrypt-adapter'
+import { BCrypterAdapter } from '../../../infra/criptography/bcrypt-adapter/bcrypt-adapter'
 import { PgUserAccountRepository, PgLogErrorsRepository } from '../../../infra/postgres/repos'
 import { SignUpController } from '../../../presentation/controllers/signup/signup'
 import { Controller } from '../../../presentation/protocols'
