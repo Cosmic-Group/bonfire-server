@@ -23,6 +23,9 @@ export class PgUser {
   @Column({ default: 'dark' })
   theme: string
 
+  @Column({ nullable: true })
+  accessToken: string
+
   @CreateDateColumn()
   created_at: Date
 
