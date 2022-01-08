@@ -6,5 +6,7 @@ export namespace LoadAccountByEmailRepository {
   export type Result = {
     id: string
     name: string
+    email: string
+    password: string
   }
 }
