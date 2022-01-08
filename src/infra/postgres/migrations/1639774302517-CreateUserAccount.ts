@@ -42,6 +42,11 @@ export class CreateUserAccount1639774302517 implements MigrationInterface {
             default: '\'dark\''
           },
           {
+            name: 'accessToken',
+            type: 'varchar',
+            isNullable: true
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP'
