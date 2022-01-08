@@ -1,11 +1,12 @@
-import { httpRequest, httpResponse, Controller, CreateAccount, Validation } from './signup-controller-protocols'
+import { httpRequest, httpResponse, Controller, CreateAccount, Validation, Authentication } from './signup-controller-protocols'
 import { EmailInUseError } from '../../errors'
 import { badRequest, created, forbidden, serverError } from '../../helpers/http/http-helper'
 
 export class SignUpController implements Controller {
   constructor (
     private readonly createAccount: CreateAccount,
-    private readonly validation: Validation
+    private readonly validation: Validation,
+    private readonly authentication: Authentication
   ) {}
 
   async handle (httpRequest: httpRequest): Promise<httpResponse> {
@@ -26,6 +27,11 @@ export class SignUpController implements Controller {
       if (!account) {
         return forbidden(new EmailInUseError())
       }
+
+      await this.authentication.auth({
+        email,
+        password
+      })
 
       return created(account)
     } catch (error) {
