@@ -7,7 +7,7 @@ import { PgUser } from '../../infra/postgres/entities'
 import { app } from '../config/app'
 import { PgConnection } from '../../infra/postgres/helpers'
 
-describe('SignUp Middleware', () => {
+describe('Authentication Routes', () => {
   let backup: IBackup
   let connection: PgConnection
 
@@ -25,15 +25,17 @@ describe('SignUp Middleware', () => {
     backup.restore()
   })
 
-  test('Should return an account on success', async () => {
-    await request(app)
-      .post('/api/signup')
-      .send({
-        name: 'Test',
-        email: 'test@mail.com',
-        password: '123',
-        passwordConfirmation: '123'
-      })
-      .expect(201)
+  describe('POST /signup', () => {
+    test('Should return 201 on signup', async () => {
+      await request(app)
+        .post('/api/signup')
+        .send({
+          name: 'Test',
+          email: 'test@mail.com',
+          password: '123',
+          passwordConfirmation: '123'
+        })
+        .expect(201)
+    })
   })
 })
