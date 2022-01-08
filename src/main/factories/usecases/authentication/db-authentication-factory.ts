@@ -12,7 +12,7 @@ export const makeDbAuthentication = (): Authentication => {
   const salt = 12
   const bcryptAdapter = new BCrypterAdapter(salt)
 
-  const jwtAdapter = new JwtAdapter(process.env.JWT_SECRET)
+  const jwtAdapter = new JwtAdapter(process.env.JWT_SECRET || '@VoPzRFrMJdxjVvLW8xnyHHLfeF7hzDi*rwcQsTs')
 
   const pgUserAccountRepository = new PgUserAccountRepository()
   return new DbAuthentication(pgUserAccountRepository, bcryptAdapter, jwtAdapter, pgUserAccountRepository)
