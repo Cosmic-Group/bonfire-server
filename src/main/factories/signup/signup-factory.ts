@@ -1,10 +1,10 @@
 import { DBCreateAccount } from '../../../data/useCases/create-account/db-create-account'
 import { BCrypterAdapter } from '../../../infra/criptography/bcrypt-adapter/bcrypt-adapter'
 import { PgUserAccountRepository, PgLogErrorsRepository } from '../../../infra/postgres/repos'
-import { SignUpController } from '../../../presentation/controllers/signup/signup'
+import { SignUpController } from '../../../presentation/controllers/signup/signup-controller'
 import { Controller } from '../../../presentation/protocols'
-import { LogControllerDecorator } from '../../decorators/log'
-import { makeSignUpValidation } from './signup-validation'
+import { LogControllerDecorator } from '../../decorators/log-controller-decorator'
+import { makeSignUpValidation } from './signup-validation-factory'
 
 export const makeSignUpController = (): Controller => {
   const salt = 12

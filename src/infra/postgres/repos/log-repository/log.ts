@@ -1,5 +1,5 @@
 import { PgLogErrors } from '../../../../infra/postgres/entities'
-import { LogErrorRepository } from '../../../../data/protocols/postgres/log-error-repository'
+import { LogErrorRepository } from '../../../../data/protocols/postgres/log/log-error-repository'
 import { PgRepository } from '../repository'
 
 export class PgLogErrorsRepository extends PgRepository implements LogErrorRepository {

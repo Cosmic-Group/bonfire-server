@@ -1,5 +1,5 @@
 export * from '../../../domain/model/account'
 export * from '../../../domain/useCases/create-account'
 export * from '../../protocols/criptography/hasher'
-export * from '../../protocols/postgres/create-account-repository'
-export * from '../../protocols/postgres/load-account-by-email-repository'
+export * from '../../protocols/postgres/account/create-account-repository'
+export * from '../../protocols/postgres/account/load-account-by-email-repository'
