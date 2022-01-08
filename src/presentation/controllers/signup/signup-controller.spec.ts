@@ -97,7 +97,9 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
 
     const httpResponse = await sut.handle(makeFakeRequest())
-    expect(httpResponse).toEqual(created(makeFakeAccount()))
+    expect(httpResponse).toEqual(created({
+      accessToken: 'any_token'
+    }))
   })
 
   test('Should return 413 if CreateAccount returns null', async () => {
