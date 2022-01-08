@@ -1,6 +1,6 @@
-import { badRequest, serverError, notFound } from './components'
-import { signupPath } from './paths'
-import { accountSchema, errorSchema, signupParamsSchema } from './schemas'
+import { badRequest, serverError, notFound, unauthorized } from './components'
+import { signupPath, loginPath } from './paths'
+import { accountSchema, errorSchema, loginParamsSchema, signupParamsSchema } from './schemas'
 
 export default {
   openapi: '3.0.0',
@@ -21,16 +21,19 @@ export default {
     name: 'Authentication'
   }],
   paths: {
-    '/signup': signupPath
+    '/signup': signupPath,
+    '/login': loginPath
   },
   schemas: {
     account: accountSchema,
     signupParams: signupParamsSchema,
+    loginParams: loginParamsSchema,
     error: errorSchema
   },
   components: {
     badRequest,
     serverError,
-    notFound
+    notFound,
+    unauthorized
   }
 }
