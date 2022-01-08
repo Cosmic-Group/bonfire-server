@@ -61,11 +61,30 @@ describe('PgUserAccountRepository', () => {
       expect(account.id).toBeTruthy()
       expect(account.name).toBe('any_name')
       expect(account.email).toBe('any_email@mail.com')
+      expect(account.password).toBe('any_password')
     })
 
     test('Should return null if loadByEmail fails', async () => {
       const account = await sut.loadByEmail('any_email@mail.com')
       expect(account).toBeFalsy()
+    })
+  })
+
+  describe('UpdateAccessTokenRepository', () => {
+    test('Should update the account accessToken on updateAccessToken success', async () => {
+      const res = await sut.create({
+        email: 'any_email@mail.com',
+        name: 'any_name',
+        password: 'any_password'
+      })
+
+      expect(res.accessToken).toBeFalsy()
+
+      await sut.updateAccessToken(res.id, 'any_token')
+      const account = await pgUserRepo.findOne({ id: parseInt(res.id) })
+
+      expect(account).toBeTruthy()
+      expect(account.accessToken).toBe('any_token')
     })
   })
 })
