@@ -1,10 +1,10 @@
 import * as dotenv from 'dotenv'
 
-import { DbAuthentication } from '../../../../data/useCases/authentication/db-authentication'
-import { PgUserAccountRepository } from '../../../../infra/postgres/repos'
-import { BCrypterAdapter } from '../../../../infra/criptography/bcrypt-adapter/bcrypt-adapter'
-import { JwtAdapter } from '../../../../infra/criptography/jwt-adapter/jwt-adapter'
-import { Authentication } from '../../../../domain/useCases/authentication'
+import { DbAuthentication } from '@/data/useCases/authentication/db-authentication'
+import { PgUserAccountRepository } from '@/infra/postgres/repos'
+import { BCrypterAdapter } from '@/infra/criptography/bcrypt-adapter/bcrypt-adapter'
+import { JwtAdapter } from '@/infra/criptography/jwt-adapter/jwt-adapter'
+import { Authentication } from '@/domain/useCases/authentication'
 
 dotenv.config()
 

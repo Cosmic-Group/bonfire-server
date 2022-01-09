@@ -1,7 +1,8 @@
 import 'reflect-metadata'
+import 'module-alias/register'
 
 import * as dotenv from 'dotenv'
-import { PgConnection } from '../infra/postgres/helpers'
+import { PgConnection } from '@/infra/postgres/helpers'
 
 dotenv.config()
 

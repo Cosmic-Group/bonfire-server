@@ -2,10 +2,10 @@ import { IBackup } from 'pg-mem'
 import { Repository } from 'typeorm'
 import request from 'supertest'
 
-import { makeFakeDb } from '../../infra/postgres/helpers/mocks/connection'
-import { PgUser } from '../../infra/postgres/entities'
+import { makeFakeDb } from '@/infra/postgres/helpers/mocks/connection'
+import { PgUser } from '@/infra/postgres/entities'
 import { app } from '../config/app'
-import { PgConnection } from '../../infra/postgres/helpers'
+import { PgConnection } from '@/infra/postgres/helpers'
 import { hash } from 'bcrypt'
 
 describe('Authentication Routes', () => {
