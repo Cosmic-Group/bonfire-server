@@ -1,5 +1,6 @@
 import { AccountModel } from '@/domain/model/account'
-export interface CreateAccountModel {
+
+export type CreateAccountModel = {
   name: string
   email: string
   password: string
