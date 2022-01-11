@@ -33,8 +33,6 @@ export class SignUpController implements Controller {
         password
       })
 
-      console.log('oii', accessToken)
-
       return created({ accessToken })
     } catch (error) {
       return serverError(error)
