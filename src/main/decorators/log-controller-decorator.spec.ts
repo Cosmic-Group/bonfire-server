@@ -1,8 +1,8 @@
-import { serverError, created } from '../../presentation/helpers/http/http-helper'
+import { serverError, created } from '@/presentation/helpers/http/http-helper'
 import { Controller, httpRequest, httpResponse } from 'presentation/protocols'
 import { LogControllerDecorator } from './log-controller-decorator'
-import { LogErrorRepository } from '../../data/protocols/postgres/log/log-error-repository'
-import { AccountModel } from '../../domain/model/account'
+import { LogErrorRepository } from '@/data/protocols/postgres/log/log-error-repository'
+import { AccountModel } from '@/domain/model/account'
 
 const makeController = (): Controller => {
   class ControllerStub implements Controller {
@@ -46,7 +46,7 @@ const makeFakeServerError = (): httpResponse => {
   return serverError(fakeError)
 }
 
-interface SutTypes {
+type SutTypes = {
   sut: LogControllerDecorator
   controllerStub: Controller
   logErrorRepositoryStub: LogErrorRepository

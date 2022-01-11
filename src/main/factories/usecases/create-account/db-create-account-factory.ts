@@ -1,9 +1,9 @@
 import * as dotenv from 'dotenv'
 
-import { PgUserAccountRepository } from '../../../../infra/postgres/repos'
-import { BCrypterAdapter } from '../../../../infra/criptography/bcrypt-adapter/bcrypt-adapter'
-import { CreateAccount } from '../../../../domain/useCases/create-account'
-import { DBCreateAccount } from '../../../../data/useCases/create-account/db-create-account'
+import { PgUserAccountRepository } from '@/infra/postgres/repos'
+import { BCrypterAdapter } from '@/infra/criptography/bcrypt-adapter/bcrypt-adapter'
+import { CreateAccount } from '@/domain/useCases/create-account'
+import { DBCreateAccount } from '@/data/useCases/create-account/db-create-account'
 
 dotenv.config()
 

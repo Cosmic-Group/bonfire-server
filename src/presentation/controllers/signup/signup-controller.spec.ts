@@ -1,7 +1,7 @@
 import { SignUpController } from './signup-controller'
 import { AccountModel, Authentication, AuthenticationModel, CreateAccount, CreateAccountModel, httpRequest, Validation } from './signup-controller-protocols'
-import { EmailInUseError, MissingParamError, ServerError } from '../../errors'
-import { forbidden, created, serverError, badRequest } from '../../helpers/http/http-helper'
+import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/errors'
+import { forbidden, created, serverError, badRequest } from '@/presentation/helpers/http/http-helper'
 
 const makeCreateAccount = (): CreateAccount => {
   class CreateAccountStub implements CreateAccount {
@@ -48,7 +48,7 @@ const makeFakeRequest = (): httpRequest => ({
     passwordConfirmation: 'any_password'
   }
 })
-interface SutTypes {
+type SutTypes = {
   sut: SignUpController
   createAccountStub: CreateAccount
   validationStub: Validation

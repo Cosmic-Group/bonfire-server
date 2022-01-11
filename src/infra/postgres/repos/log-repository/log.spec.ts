@@ -1,8 +1,8 @@
 import { IBackup } from 'pg-mem'
 import { Repository } from 'typeorm'
-import { PgLogErrors } from '../../entities'
-import { PgConnection } from '../../helpers'
-import { makeFakeDb } from '../../helpers/mocks/connection'
+import { PgLogErrors } from '@/infra/postgres/entities'
+import { PgConnection } from '@/infra/postgres/helpers'
+import { makeFakeDb } from '@/infra/postgres/helpers/mocks/connection'
 import { PgLogErrorsRepository } from './log'
 
 describe('Log Postgres Repository', () => {

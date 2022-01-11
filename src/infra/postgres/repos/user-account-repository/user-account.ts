@@ -1,10 +1,10 @@
-import { PgUser } from '../../entities'
-import { CreateAccountRepository } from '../../../../data/protocols/postgres/account/create-account-repository'
-import { AccountModel } from '../../../../domain/model/account'
-import { CreateAccountModel } from '../../../../domain/useCases/create-account'
-import { PgRepository } from '../repository'
-import { LoadAccountByEmailRepository } from '../../../../data/protocols/postgres/account/load-account-by-email-repository'
-import { UpdateAccessTokenRepository } from '../../../../data/protocols/postgres/account/update-access-token-repository'
+import { PgUser } from '@/infra/postgres/entities'
+import { CreateAccountRepository } from '@/data/protocols/postgres/account/create-account-repository'
+import { AccountModel } from '@/domain/model/account'
+import { CreateAccountModel } from '@/domain/useCases/create-account'
+import { PgRepository } from '@/infra/postgres/repos/repository'
+import { LoadAccountByEmailRepository } from '@/data/protocols/postgres/account/load-account-by-email-repository'
+import { UpdateAccessTokenRepository } from '@/data/protocols/postgres/account/update-access-token-repository'
 
 export class PgUserAccountRepository extends PgRepository implements CreateAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository {
   async create (accountData: CreateAccountModel): Promise<AccountModel> {

@@ -1,23 +1,20 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
+    "module": "commonjs", 
+    "target": "es2019", 
+    "esModuleInterop": true, 
+    "sourceMap": true,
     "rootDir": "./src",
     "baseUrl": "./src",
-    "outDir": "./dist",
-    "target": "es2019", 
-    "module": "commonjs", 
-    "esModuleInterop": true, 
+    "paths": {
+      "@/*": ["*"]
+    },
     "strictNullChecks": false,
-    "sourceMap": true,
-    // "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "paths": {
-      "@/*": [
-        "*"
-      ]
-    }
   },
   "include": [
     "src"
